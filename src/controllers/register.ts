@@ -10,13 +10,13 @@ export const register = async (req: express.Request, res: express.Response) => {
         const { email, password, username } = req.body;
 
         if (!email || !password || !username) {
-            return res.sendStatus(400).end();
+            return res.status(400).send({ message: 'Please fill out all required fields.'});
         }
         // checks if there is a user with the same email
         const existingUser = await getUserByEmail(email);
         // returns error if true
         if (existingUser) {
-            return res.sendStatus(400).end();
+            return res.status(400).send({ message: 'User already exists.' });
         }
         
         const salt = random() // creates random string
@@ -29,10 +29,10 @@ export const register = async (req: express.Request, res: express.Response) => {
             }
         })
         // returns the new user in a json format
-        return res.status(200).json(user).end();
+        return res.status(200).json(user);
 
     } catch (error) {
         console.log(error);
-        return res.sendStatus(500).end();
+        return res.sendStatus(500);
     }
 }
