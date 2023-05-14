@@ -1,4 +1,4 @@
-// creating authentication helpers to encrypt passwords or to creata random token
+// creating authentication helper to encrypt passwords or to creata random token
 import crypto from 'crypto';
 
 const SECRET = process.env.SECRET
